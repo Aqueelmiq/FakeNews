@@ -15,16 +15,28 @@ setInterval(function() {
 			var progress = document.createElement("progress");
 			progress.value = 22;
 			progress.max = 100;
-			$(this).find("._5va3").append(progress);
+
+			var text = document.createElement("p");
+			text.textContent = "Safety: Low, Trust: Low, Score: 31/100";
+			//text.style.cssFloat = "right";
+
+			var data = document.createElement("div");
+			data.append(progress);
+			data.append(text);
+			data.style.display = "flex";
+			data.style.alignItems = "center";
+			data.style.justifyContent = "space-between";
+			
+			$(this).find("._5va3").append(data);
 
 			//Textual Links
 			$(this).find("p a").each(function() {
-				console.log($(this)[0].innerHTML);
+				console.log($(this)[0].href);
 			});
-			
+
 			//Content Links
 			$(this).find("._52c6").each(function() {
-				console.log($(this)[0]);
+				console.log($(this)[0].href);
 			});
 			
 			feeds.add(this);
