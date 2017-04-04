@@ -12,16 +12,16 @@ setInterval(function() {
 	
 	$("._1dwg").each(function(){
 		if(!feeds.has(this)) {
-			var progress = document.createElement("progress");
+			var progress = document.createElement("progress"); 
 			progress.value = 22;
 			progress.max = 100;
 
 			var text = document.createElement("p");
-			text.textContent = "Safety: Low, Trust: Low, Score: 31/100";
+			//text.textContent = "Recommendation: Uncertain";
 			//text.style.cssFloat = "right";
 
 			var data = document.createElement("div");
-			data.append(progress);
+			//data.append(progress); 
 			data.append(text);
 			data.style.display = "flex";
 			data.style.alignItems = "center";
@@ -31,12 +31,14 @@ setInterval(function() {
 
 			//Textual Links
 			$(this).find("p a").each(function() {
-				console.log($(this)[0].href);
+				//console.log($(this)[0].href);
 			});
 
 			//Content Links
 			$(this).find("._52c6").each(function() {
 				console.log($(this)[0].href);
+                                text.textContent = "Recommendation: Uncertain";
+
 			});
 			
 			feeds.add(this);
