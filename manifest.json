@@ -1,19 +1,22 @@
 {
   "manifest_version": 2,
-
   "name": "FakeNews",
   "description": "This extension suggests reputabiliy of news seen on facebook posts",
   "version": "1.0",
 
-  "icons": { "16": "logo_16.png",
-           "48": "logo_48.png",
-          "128": "logo_128.png" },
-
+  "icons": { 
+    "16": "logo_16.png",
+    "48": "logo_48.png",
+    "128": "logo_128.png"
+  },
   "content_scripts": [
     {
       "matches": ["https://www.facebook.com/*"],
       "js": ["jquery-2.1.4.min.js", "fakenews.js"],
       "run_at": "document_end"
     }
+  ],
+  "permissions": [
+    "https://newscheckbackend.herokuapp.com/*"
   ]
 }

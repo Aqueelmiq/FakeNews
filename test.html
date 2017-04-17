@@ -1,0 +1,37 @@
+<html> 
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <style>
+            progress {
+                appearance: none;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                height: 10px;
+                border-radius: 10px;
+            }
+
+            progress::-webkit-progress-value {
+                background: orange;
+            }
+        </style>
+        <progress value="60" max="100"> </progress>
+        <button onclick="callfunc()"> Call </button>
+        <script>
+        const backend = "https://newscheckbackend.herokuapp.com/check";
+        var callfunc = function() {
+            const sample = "https://conservativepost.com/what-trump-just-did-something-for-the-us-military-is-amazing2/";
+            $.ajax({
+                type: "POST",
+                data :JSON.stringify({ url: sample, done: false }),
+                url: backend,
+                contentType: "application/json",
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                }
+            });
+        }
+        </script>
+    </body>
+</html>
