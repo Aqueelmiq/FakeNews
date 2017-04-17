@@ -1,0 +1,27 @@
+Los Angeles Times	Lean Left		http://www.latimes.com/
+MSNBC	Left		http://www.msnbc.com/
+National Journal	Center		https://www.nationaljournal.com/
+NBC	Lean Left		http://www.nbc.com/
+New York Daily News	Left		http://www.nydailynews.com/
+New York Post	Right		http://nypost.com/
+New York Times	Lean Left		https://www.nytimes.com/
+Newsweek	Lean Left		http://www.newsweek.com/
+NPR	Center		http://www.npr.org/
+PBS	Center		http://www.pbs.org/
+Politifact	Lean Left		http://www.politifact.com/
+Reuters	Center		http://www.reuters.com/
+Rolling Stone	Left		http://www.rollingstone.com/
+The Daily Wire	Right		http://www.dailywire.com/#
+The Federalist	Lean Right		http://thefederalist.com/
+The Guardian	Lean Left		https://www.theguardian.com/us
+The Nation	Left		https://www.thenation.com/
+The Telegraph -UK	Lean Right		http://www.telegraph.co.uk/
+Time Magazine	Left		http://time.com/
+U.S. News and World Report	Lean Left		https://www.usnews.com/
+USA Today	Center		https://www.usatoday.com/
+Wall Street Journal	Center		https://www.wsj.com/
+Washington Guardian	Lean Right		https://www.theguardian.com/us-news/washington-dc
+Washington Post	Lean Left		https://www.washingtonpost.com/
+Washington Times	Lean Right		http://www.washingtontimes.com/
+Watchdog.org	Lean Right		http://watchdog.org/
+Yahoo News	Lean Left		https://www.yahoo.com/news/		

@@ -17,11 +17,11 @@ setInterval(function() {
 			progress.max = 100;
 
 			var text = document.createElement("p");
-			//text.textContent = "Recommendation: Uncertain";
-			//text.style.cssFloat = "right";
+			text.textContent = "Recommendation: Uncertain";
+			text.style.cssFloat = "right";
 
 			var data = document.createElement("div");
-			//data.append(progress); 
+			data.append(progress); 
 			data.append(text);
 			data.style.display = "flex";
 			data.style.alignItems = "center";

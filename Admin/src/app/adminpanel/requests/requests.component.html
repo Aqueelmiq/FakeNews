@@ -1,0 +1,35 @@
+<div class="rounded bg-faded p-4">
+  <div class="row">
+    <h3 class="col-md-12 display-6"> Pending Issues </h3>
+  </div>
+  <div class="col-md-12 mt-3">
+    <ul class="list-group">
+      <li class="list-group-item active">
+        <div class="col-sm-5">
+          Issuer
+        </div>
+        <div class="col-sm-5">
+          Description
+        </div>
+        <div class="col-sm-2">
+          Actions
+        </div>
+      </li>
+      <li class="list-group-item" *ngFor="let item of issues | async">
+        <div class="col-sm-3">
+          {{item.name}}
+        </div>
+        <div class="col-sm-3">
+          {{item.url}}
+        </div>
+        <div class="col-sm-4">
+          {{item.reason}}
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-info" (click)="resolve(item)"> Resolved </button>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</div>
