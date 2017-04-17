@@ -2,6 +2,7 @@
 	
 'use strict';
 var feeds = new Set();
+var uris = new Set(); 
 
 setInterval(function() {
 
@@ -25,13 +26,18 @@ setInterval(function() {
 			data.style.display = "flex";
 			data.style.alignItems = "center";
 			data.style.justifyContent = "space-between";
-			
+
+			var style = document.createElement("style");
+			var baseStyle = document.createElement("style")
+			data.append(baseStyle); 
+
+			baseStyle.innerHTML = "progress {appearance: none; -moz-appearance: none; -webkit-appearance: none; height: 10px;}"
 
 			//Textual Links
 			$(this).find("p a").each(function() {
 				//console.log($(this)[0].href);
 			});
-
+			var xyz = ""
 			//Content Links
 			$(this).find("._52c6").each(function() {
 				
@@ -44,7 +50,7 @@ setInterval(function() {
 						.replace(/%2F/gi, "/");
 
 				uri = uri.substr(0, uri.indexOf("&h="));
-				console.log(uri);
+				xyz = uri;
 				$.ajax({
                 	type: "POST",
                 	data :JSON.stringify({ url: uri, done: false }),
@@ -52,13 +58,32 @@ setInterval(function() {
                 	contentType: "application/json",
                 	success: function(data) {               	
 						progress.value = Math.round(data["data"]["score"]);
+						if(progress.value < 35) {
+
+							style.innerHTML = "progress::-webkit-progress-value {background: red;}";
+
+						}
+						else if (progress.value < 60) {
+
+							style.innerHTML = "progress::-webkit-progress-value {background: orange;}";
+
+						}
+						else {
+
+							style.innerHTML = "progress::-webkit-progress-value {background: green;}";
+
+						}
 						text.textContent = data["data"]["suggestion"];
                 	}
             	});
+				data.append(style);
 				data.append(progress); 
 				data.append(text);
 			});
-			$(this).find("._5va3").append(data);
+			
+			if(!uris.has(xyz))
+				$(this).find("._5va3").append(data);
+			uris.add(xyz);
 			feeds.add(this);
 		}
 	});

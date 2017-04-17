@@ -3,6 +3,20 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
     <body>
+        <style>
+            progress {
+                appearance: none;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                height: 10px;
+                border-radius: 10px;
+            }
+
+            progress::-webkit-progress-value {
+                background: orange;
+            }
+        </style>
+        <progress value="60" max="100"> </progress>
         <button onclick="callfunc()"> Call </button>
         <script>
         const backend = "https://newscheckbackend.herokuapp.com/check";
