@@ -26,6 +26,18 @@ setInterval(function() {
 			data.style.display = "flex";
 			data.style.alignItems = "center";
 			data.style.justifyContent = "space-between";
+			
+			var button = document.createElement("button");
+			var b_text = document.createTextNode("Agree");
+			button.appendChild(b_text);
+			data.append(button);
+
+			button.addEventListener ("click", function() {
+				button.style.visibility = "hidden";
+				var thanks = document.createElement("p")
+				thanks.textContent = "Thanks!"
+				data.append(thanks)
+			});	
 
 			var style = document.createElement("style");
 			var baseStyle = document.createElement("style")
