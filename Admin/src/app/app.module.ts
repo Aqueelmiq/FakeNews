@@ -21,6 +21,9 @@ import { CustomerrequestComponent } from './customerrequest/customerrequest.comp
 import { RequestformComponent } from './customerrequest/requestform/requestform.component';
 import {DataService} from "./dataservice/data.service";
 import {ToasterModule} from "angular2-toaster";
+import { InstructionsComponent } from './instructions/instructions.component';
+import { HomeComponent } from './home/home.component';
+import { AnalysisComponent } from './home/analysis/analysis.component';
 
 const config = {
   apiKey: "AIzaSyDTQms40io3Fu4JboZrtrQXCL0WiV5Ds2I",
@@ -37,11 +40,13 @@ const authConfig = {
 };
 
 const appRoutes: Routes = [
+  { path: 'home', component: HomeComponent },
   { path: 'admin', component: AdminpanelComponent },
   { path: 'user',  component: LoginpageComponent },
+  { path: 'guide',  component: InstructionsComponent },
   { path: 'tickets',  component: CustomerrequestComponent },
   { path: '',
-    redirectTo: '/admin',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   { path: '**',    component: NotfoundComponent }
@@ -61,7 +66,10 @@ const appRoutes: Routes = [
     ResultComponent,
     RequestsComponent,
     CustomerrequestComponent,
-    RequestformComponent
+    RequestformComponent,
+    InstructionsComponent,
+    HomeComponent,
+    AnalysisComponent
   ],
   imports: [
     BrowserModule,
