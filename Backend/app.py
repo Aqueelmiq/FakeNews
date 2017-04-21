@@ -7,8 +7,13 @@ from firebase import firebase
 
 from flask import Flask, jsonify, json, request
 
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
+
 grammar_base = "https://languagetool.org/api/v2/check"
+fire = firebase.FirebaseApplication('https://newscheck-e0069.firebaseio.com', None)
 
 
 # Test Route
@@ -31,7 +36,6 @@ def check():
     url = url.replace('https://', '')
     url = url.replace('www.', '')
     url = str.split(url, '/')[0]
-    print(url)
 
     rating = getRatings(url)
     soup = BeautifulSoup(newssite, "html.parser")
@@ -48,7 +52,14 @@ def check():
     grammar = requests.post(grammar_base, {'text': text, 'language': 'auto'}).json()
     score = (2.5 - len(grammar['matches'])/len(text)*75) + rating['rating']*0.75
 
-    print(rating['rating'])
+    key, userRating = getUserRatings(url)
+    if userRating is not None:
+        if userRating['reviews'] < 50:
+            score = (score*(100-userRating['reviews'])/100) + (userRating['score']*userRating['reviews']/100)
+        else:
+            score = (score/2) + (userRating['score']/2)
+
+    score = score + not_recommended(url)
 
     if score >= 7:
         status = "This news and source is trustworthy"
@@ -62,26 +73,63 @@ def check():
     return jsonify(data={'score': score, 'suggestion': status})
 
 
+#From Parser.py
+def not_recommended(url):
+    # Assigns a not_recommended score to a url
+    # Check for known urls
+    if 'com.co' in url:
+        return -2
+
+    return 0
+
 def getRatings(url):
 
-    fire = firebase.FirebaseApplication('https://newscheck-e0069.firebaseio.com', None)
     result = fire.get('/sources', None)
 
     for k, v in result.items():
         if url in v['url']:
-            return v;
+            return v
 
     return {"rating": 5, "notfound": True, "confidence": False}
+
+def getUserRatings(url):
+
+    result = fire.get('/userfeedback', None)
+
+    for k, v in result.items():
+        if url in v['url']:
+            return k, v
+
+    return len(result.items()), None
+
 
 @app.route('/user/feedback', methods=['PUT'])
 def registerFeedback():
 
-    url = request.json['url'];
-    checkuri = url
+    url = request.json['url']
+    feedback = request.json['feedback']
+    fireUrl = '/userfeedback'
+
     url = url.replace('http://', '')
     url = url.replace('https://', '')
     url = url.replace('www.', '')
     url = str.split(url, '/')[0]
+
+    key, rating = getUserRatings(url)
+
+    if(rating is not None):
+        n = rating['reviews']
+        rating['reviews'] = n + 1
+        score = rating['score']*n
+        score += feedback
+        rating['score'] = score/(n+1)
+        fireUrl = fireUrl + "/" + key
+        fire.patch(fireUrl, rating)
+    else:
+        rating = {'reviews': 1, 'score': feedback, 'url': url}
+        fire.post(fireUrl, rating)
+
+    return jsonify(data=rating)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
